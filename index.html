@@ -18,7 +18,7 @@
     </style>
 </head>
 <body>
-    <canvas id="game-canvas" width="400" height="400"></canvas>
+    <canvas id="game-canvas" width="600" height="600"></canvas>
      <button id="restart-button" class="restart">重新开始</button>
     <script>
         var canvas = document.getElementById("game-canvas");
@@ -30,7 +30,9 @@
         ];
         var food = { x: 0, y: 0 };
         var direction = "right";
-        
+
+        var score = 0;
+
        function drawSnake() {
 for (var i = 0; i < snake.length; i++) {
 ctx.beginPath();
@@ -53,14 +55,17 @@ ctx.closePath();
             ctx.closePath();
         }
         
+
         function generateFoodPosition() {
             var maxX = canvas.width - snakeSize;
             var maxY = canvas.height - snakeSize;
             
             food.x = Math.floor(Math.random() * maxX / snakeSize) * snakeSize;
             food.y = Math.floor(Math.random() * maxY / snakeSize) * snakeSize;
+  score++;
         }
         
+
         function moveSnake() {
             var head = { x: snake[0].x, y: snake[0].y };
             
@@ -98,8 +103,12 @@ ctx.closePath();
             
             drawSnake();
             drawFood();
+
+ ctx.fillStyle = "black";
+    ctx.font = "20px Arial";
+    ctx.fillText("Score: " + score, 10, 30); // Display the score
         }
-        
+
         function changeDirection(event) {
             var key = event.keyCode;
             
